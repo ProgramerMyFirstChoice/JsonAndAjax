@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="autocomplete.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>	
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>	
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="jquery.autocomplete.min.js"></script>
+    <script type="text/javascript" src="ProductDetails.js"></script>
+    
+</head>
+
+<body>
+	<div class="container">
+
+		<h2>What Product Would You like?</h2>
+		
+		<div id="searchfield">
+        <!--Make sure the form has the autocomplete function switched off:-->
+           <form autocomplete="off"><input type="text" name="currency" class="biginput" id="autocomplete"></form>
+        </div><!-- @end #searchfield -->
+        
+
+		<div id="dialog" title="Favorite Foods">Just say the first thing comes to your mind i won't judge you:)</div>
+		<button id="opener"> Show details</button>
+        
+	</div>
+
+	<script>
+
+
+		
+        /*var currencies = [
+                { value: 'Porsche Bike', data: {
+                                    "details": "A bike with a brand name!",
+                                    "price":"10,000",
+                                    "imageSources": "https://image.ibb.co/ekyGhq/bike.jpg"
+                                    } 
+                },
+                { value: 'Pretty Shoes', data: {
+                                    "details": "Come to our shoe store",
+                                    "price":"54.45",
+                                    "imageSources": "https://image.ibb.co/j7jp2q/shoes.jpg"
+                                    } 
+                },
+
+                { value: 'Pie Fest!', data: {
+                                    "details": "Oh yeah this is officially the best pie ever",
+                                    "price":"3.45",
+                                    "imageSources": "https://image.ibb.co/cogDTV/pie.jpg"
+                                    } 
+                },
+
+                { value: 'Inside Out Umbrella', data: {
+                                    "details": "Designer Umbrellas for low cost",
+                                    "price":"14.55",
+                                    "imageSources": "https://image.ibb.co/g1mQaA/umbrella.jpg"
+                                    } 
+                },
+
+                { value: 'Coffee', data: {
+                                    "details": "Come get your morning dessert",
+                                    "price":"4.59",
+                                    "imageSources": "https://image.ibb.co/fPVU2q/coffee.jpg"
+                                    } 
+                },
+  ];*/
+
+		
+		// Function for dialog open
+		$(function () {
+			$("#dialog").dialog({
+				autoOpen: false,
+				hide: "puff",
+				show: "slide",
+                width:"350px",
+				buttons: {
+					OK: function () { $(this).dialog("close"); }
+				},
+
+			});
+
+			$("#opener").click(function () {
+				$("#dialog").dialog("open");
+			});
+		});
+        
+        // setup autocomplete function pulling from currencies[] array
+      $('#autocomplete').autocomplete({
+        lookup: "ProductDetails.json",
+        onSelect: function (suggestion) {
+          var thehtml = "<h2><strong>" + suggestion.value + ":</strong></h2> " + "Description: " + suggestion.data.details + "<br> <strong>Prices:</strong> " + suggestion.data.price + " <img src=" + suggestion.data.imageSources +"/>";
+          $('#dialog').html(thehtml);
+        }
+      });
+
+	</script>
+
+
+</body>
+
+</html>
